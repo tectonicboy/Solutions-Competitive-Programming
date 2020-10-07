@@ -1,2 +1,1 @@
-# Solutions Competitive Programming
- Solutions to problems I've solved in Competitive Programming
+Here I post my solutions to Competitive Programming problems that I've solved in C++.
