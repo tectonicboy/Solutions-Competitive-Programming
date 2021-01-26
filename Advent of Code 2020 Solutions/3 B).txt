@@ -1,0 +1,48 @@
+#include <string>
+#include <algorithm>
+#include <vector>
+#include <cmath>
+#include <iostream>
+#include <iterator>
+#include <tuple>
+
+
+using namespace std;
+
+
+int CheckTrees(vector<string>& V, size_t r, size_t d) {
+	size_t right = 0;
+	int trees = 0;
+	for (size_t i = d; i < V.size(); i += d) {
+		if (right + r >= V[i].size()) {
+			right = r - (V[i].size() - right);
+		}
+		else {
+			right += r;
+		}
+		cout << "Analysing: V[" << i << "][" << right << "] = " << V[i][right] << "\n";
+		if (V[i][right] == '#') {
+			++trees;
+		}
+	}
+	return trees;
+}
+
+int main() {
+	string str = "";
+	vector<string> vec = {};
+	while (cin >> str) {
+		if (str == "END") {
+			break;
+		}
+		vec.push_back(str);
+	}
+	int result1 = CheckTrees(vec, 1, 1);
+	int result2 = CheckTrees(vec, 3, 1);
+	int result3 = CheckTrees(vec, 5, 1);
+	int result4 = CheckTrees(vec, 7, 1);
+	int result5 = CheckTrees(vec, 1, 2);
+	cout << "End results: \n" << result1 << "\n" << result2 << "\n" << result3 << "\n" << result4 << "\n" << result5 << "\n";
+	cout << "The product of these numbers is the answer.\n";
+	return 0;
+}

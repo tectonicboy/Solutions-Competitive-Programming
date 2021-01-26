@@ -1,0 +1,63 @@
+#include <string>
+#include <algorithm>
+#include <vector>
+#include <cmath>
+#include <iostream>
+#include <iterator>
+#include <tuple>
+
+
+using namespace std;
+
+
+int main() {
+	string str = "", line = "";
+	int counter = 0;
+	vector<string> vec = {};
+
+	while (getline(cin, line)) {
+		if (line.size() == 0) {
+			vec.push_back(str);
+			str = "";
+			counter = 0;
+		}
+		else if (line == "END") {
+			vec.push_back(str);
+			counter = 0;
+			break;
+		}
+		else {
+			if (counter) { str.push_back(' '); }
+			str += line;
+			++counter;
+		}
+	}
+	string dummy = "";
+	bool found = false;
+	int sections = 0, missing = 0, valid = 0;
+	for (size_t i = 0; i < vec.size(); ++i) {
+		cout << "Analyzing: " << vec[i] << "\n";
+		vec[i].push_back(' ');
+		for (string::iterator it = vec[i].begin(); it != vec[i].end(); ++it) {
+			while (*it != ' ') {
+				dummy.push_back(*it);
+				++it;
+			}
+			++sections;
+			cout << "\tRead the section: " << dummy << "\n";
+			if (dummy[0] == 'c' && dummy[1] == 'i' && dummy[2] == 'd') {
+				found = true;
+			}
+			dummy = "";
+		}
+		missing = 8 - sections;
+		cout << "\nSections counted: " << sections << "\n";
+		sections = 0;
+		if ((missing == 1 && !found) || (missing == 0)) {
+			++valid;
+		}
+		found = false;
+	}
+	cout << "Answer: " << valid << "\n";
+	return 0;
+}
